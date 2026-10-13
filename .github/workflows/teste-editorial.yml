@@ -1,0 +1,33 @@
+name: Teste do publicador
+on:
+  push:
+    paths:
+      - 'automation/**'
+      - '.github/workflows/teste-editorial.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  teste:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validar codigo e dados
+        run: |
+          python -m py_compile automation/publicar.py
+          python -m json.tool automation/pautas.json > /dev/null
+      - name: Simular publicacao sem modificar o repositorio
+        run: |
+          set -e
+          temp=$(mktemp -d)
+          cp -R automation leituras "$temp/"
+          cp index.html "$temp/"
+          (cd "$temp" && python automation/publicar.py)
+          test -f "$temp/leituras/conversas-que-aproximam.html"
+          grep -q 'conversas-que-aproximam.html' "$temp/leituras/index.html"
+          grep -q 'conversas-que-aproximam.html' "$temp/index.html"
+          grep -q 'editorial.css' "$temp/leituras/conversas-que-aproximam.html"
+          echo 'TESTE APROVADO: artigo, indice e homepage atualizados'
