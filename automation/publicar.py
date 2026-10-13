@@ -20,10 +20,24 @@ esc = lambda value: html.escape(str(value), quote=True)
 slug = entry["slug"]
 if not re.fullmatch(r"[a-z0-9-]+", slug):
     raise ValueError("Slug inválido")
-sections = "\n".join(
-    f'<section class="item"><h2>{i}. {esc(title)}</h2><p>{esc(body)}</p></section>'
-    for i, (title, body) in enumerate(entry["items"], 1)
-)
+if "paragraphs" in entry:
+    sections = "\n".join(
+        '<section class="item"><p>' + esc(p) + '</p></section>' for p in entry["paragraphs"]
+    )
+else:
+    sections = "\n".join(
+        f'<section class="item"><h2>{i}. {esc(title)}</h2><p>{esc(body)}</p></section>'
+        for i, (title, body) in enumerate(entry["items"], 1)
+    )
+commerce = ""
+if entry.get("shopping_tip"):
+    commerce = '<div class="next"><strong>Gostou do estilo?</strong><p>' + esc(entry["shopping_tip"]) + "</p>"
+    url = entry.get("affiliate_url")
+    if url:
+        if not isinstance(url, str) or not url.startswith("https://"):
+            raise ValueError("Link comercial deve ser HTTPS")
+        commerce += '<a href="' + esc(url) + '" rel="nofollow sponsored noopener" target="_blank">Ver produto →</a><p class="small">Este link pode gerar comissão para o site.</p>'
+    commerce += "</div>"
 images = {
     "Casa prática": "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&q=80",
     "Relacionamentos": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1200&q=80",
@@ -48,6 +62,7 @@ page = f"""<!doctype html>
 <h1>{esc(entry["title"])}</h1><p class="lead">{esc(entry["intro"])}</p>
 <img class="hero" src="{image}" alt="Imagem ilustrativa do tema {esc(entry["category"])}" loading="eager">
 {sections}
+{commerce}
 <div class="next"><strong>Gostou desta descoberta?</strong><p>Continue explorando ideias úteis e histórias curiosas.</p><a href="/leituras/">Ver mais leituras →</a> · <a href="/#achadinhos">Explorar achadinhos →</a></div>
 </main><aside class="aside"><h3>Você também vai gostar</h3>{related or '<a class="recommend" href="/#desafios">Você acerta as cinco perguntas? Faça o desafio →</a>'}<a class="recommend" href="/#achadinhos">Ideias úteis para sua casa →</a><p class="small">Conteúdo informativo. Imagens ilustrativas.</p></aside></div>
 <footer class="footer">1 Minuto de Luz · <a href="/">Página inicial</a> · <a href="/privacidade.html">Privacidade</a></footer></body></html>"""
