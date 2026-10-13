@@ -1,5 +1,8 @@
 name: Publicacao editorial programada
 on:
+  push:
+    paths:
+      - '.github/workflows/editorial.yml'
   schedule:
     - cron: '20 13 * * 1'
   workflow_dispatch:
