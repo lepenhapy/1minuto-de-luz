@@ -24,21 +24,39 @@ sections = "\n".join(
     f'<section class="item"><h2>{i}. {esc(title)}</h2><p>{esc(body)}</p></section>'
     for i, (title, body) in enumerate(entry["items"], 1)
 )
+images = {
+    "Casa prática": "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&q=80",
+    "Relacionamentos": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1200&q=80",
+    "Curiosidades": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
+}
+image = images.get(entry["category"], images["Curiosidades"])
+related = "".join(
+    f'<a class="recommend" href="/leituras/{esc(other["slug"])}.html">{esc(other["title"])} →</a>'
+    for other in DATA if other["slug"] != slug and (DEST / f'{other["slug"]}.html').exists()
+)
 page = f"""<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(entry["title"])} | 1 Minuto de Luz</title>
 <meta name="description" content="{esc(entry["intro"])}">
-<style>body{{margin:0;background:#f7f7f4;color:#171c28;font:18px/1.7 system-ui,sans-serif}}header,main,footer{{max-width:760px;margin:auto;padding:24px}}header a,footer a{{color:#b83d24}}h1{{font-size:clamp(2rem,5vw,3.3rem);line-height:1.12}}h2{{font-size:1.35rem;line-height:1.3}}.item{{padding:20px 0;border-top:1px solid #ddd}}.tag{{color:#a63722;font-size:14px;font-weight:700;text-transform:uppercase}}a{{color:#a63722}}footer{{border-top:1px solid #ddd;font-size:14px}}</style></head>
-<body><header><a href="/">✳ 1 minuto de luz</a></header>
-<main><p class="tag">{esc(entry["category"])}</p><h1>{esc(entry["title"])}</h1>
-<p>{esc(entry["intro"])}</p>{sections}
-<p>Gostou da leitura? <a href="/#historias">Explore outras histórias</a> ou <a href="/#achadinhos">veja ideias para casa</a>.</p>
-</main><footer>Conteúdo informativo e recreativo. <a href="/">Voltar ao início</a>.</footer></body></html>"""
+<meta property="og:title" content="{esc(entry["title"])}">
+<meta property="og:description" content="{esc(entry["intro"])}">
+<meta property="og:image" content="{image}">
+<link rel="stylesheet" href="/leituras/editorial.css"></head>
+<body><header class="top"><nav class="nav"><a class="logo" href="/"><span>✳</span> 1 minuto de luz</a><div class="navlinks"><a href="/#achadinhos">Achadinhos</a><a href="/#historias">Histórias</a><a href="/#desafios">Desafios</a></div></nav></header>
+<div class="stripe">UMA DESCOBERTA PUXA A OUTRA</div>
+<div class="layout"><main class="article"><p class="tag">{esc(entry["category"])} · Leitura rápida</p>
+<h1>{esc(entry["title"])}</h1><p class="lead">{esc(entry["intro"])}</p>
+<img class="hero" src="{image}" alt="Imagem ilustrativa do tema {esc(entry["category"])}" loading="eager">
+{sections}
+<div class="next"><strong>Gostou desta descoberta?</strong><p>Continue explorando ideias úteis e histórias curiosas.</p><a href="/leituras/">Ver mais leituras →</a> · <a href="/#achadinhos">Explorar achadinhos →</a></div>
+</main><aside class="aside"><h3>Você também vai gostar</h3>{related or '<a class="recommend" href="/#desafios">Você acerta as cinco perguntas? Faça o desafio →</a>'}<a class="recommend" href="/#achadinhos">Ideias úteis para sua casa →</a><p class="small">Conteúdo informativo. Imagens ilustrativas.</p></aside></div>
+<footer class="footer">1 Minuto de Luz · <a href="/">Página inicial</a> · <a href="/privacidade.html">Privacidade</a></footer></body></html>"""
 (DEST / f"{slug}.html").write_text(page, encoding="utf-8")
 cards = []
 for item in DATA:
     if (DEST / f'{item["slug"]}.html').exists():
-        cards.append(f'<li><a href="./{esc(item["slug"])}.html">{esc(item["title"])}</a> — {esc(item["category"])}</li>')
-index = '<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Novas leituras | 1 Minuto de Luz</title><body style="font:18px/1.6 system-ui;max-width:740px;margin:50px auto;padding:20px"><a href="/">← 1 minuto de luz</a><h1>Novas leituras</h1><ul>' + "".join(cards) + '</ul></body></html>'
+        picture = images.get(item["category"], images["Curiosidades"])
+        cards.append(f'<a class="card" href="./{esc(item["slug"])}.html"><img loading="lazy" src="{picture}" alt=""><div class="card-body"><span class="tag">{esc(item["category"])}</span><h2>{esc(item["title"])}</h2><span>Leia agora →</span></div></a>')
+index = '<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Novas leituras | 1 Minuto de Luz</title><link rel="stylesheet" href="/leituras/editorial.css"><body><header class="top"><nav class="nav"><a class="logo" href="/">✳ 1 minuto de luz</a><div class="navlinks"><a href="/#achadinhos">Achadinhos</a><a href="/#desafios">Desafios</a></div></nav></header><div class="stripe">DESCUBRA ALGO NOVO</div><div class="layout"><main class="listing"><p class="tag">Histórias e descobertas</p><h1>Novas leituras</h1><p class="lead">Ideias úteis, curiosidades e relações humanas para explorar.</p><div class="cards">' + "".join(cards) + '</div></main><aside class="aside"><h3>Explore também</h3><a class="recommend" href="/#achadinhos">Achadinhos para casa →</a><a class="recommend" href="/#desafios">Desafios rápidos →</a></aside></div><footer class="footer">1 Minuto de Luz · <a href="/">Voltar ao início</a></footer></body></html>'
 (DEST / "index.html").write_text(index, encoding="utf-8")
 print(f"Publicado: {slug} ({dt.date.today().isoformat()})")
