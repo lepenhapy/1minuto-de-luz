@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "cozinha-organizada-sem-reforma",
+    "category": "Casa prática",
+    "title": "7 mudanças simples que deixam a cozinha mais organizada",
+    "intro": "Antes de comprar novos acessórios, vale observar o que já pode ser reorganizado.",
+    "items": [
+      [
+        "Agrupe itens por uso",
+        "Deixe próximos os objetos utilizados na mesma tarefa."
+      ],
+      [
+        "Libere a bancada",
+        "Guarde o que não precisa ficar exposto todos os dias."
+      ],
+      [
+        "Revise os utensílios repetidos",
+        "Identifique peças que ocupam espaço sem serem utilizadas."
+      ],
+      [
+        "Aproveite a altura dos armários",
+        "Organizadores de prateleira podem ajudar quando as medidas permitem."
+      ],
+      [
+        "Organize as tampas",
+        "Separar tampas de panelas facilita encontrar cada conjunto."
+      ],
+      [
+        "Use recipientes identificados",
+        "Etiquetas simples ajudam a reconhecer mantimentos sem abrir embalagens."
+      ],
+      [
+        "Teste antes de comprar",
+        "Meça o espaço e verifique se o acessório realmente resolverá o problema."
+      ]
+    ]
+  },
+  {
+    "slug": "conversas-que-aproximam",
+    "category": "Relacionamentos",
+    "title": "6 perguntas que podem aproximar duas pessoas",
+    "intro": "Perguntas abertas podem ajudar a iniciar conversas, sem substituir escuta e respeito.",
+    "items": [
+      [
+        "O que fez seu dia melhor?",
+        "Uma pergunta concreta costuma ser mais fácil de responder."
+      ],
+      [
+        "O que está ocupando seus pensamentos?",
+        "Permite compartilhar preocupações sem presumir a resposta."
+      ],
+      [
+        "Como posso ajudar esta semana?",
+        "Transforma atenção em uma oferta prática."
+      ],
+      [
+        "Que lembrança nossa você gosta?",
+        "Recordar experiências pode abrir espaço para uma conversa leve."
+      ],
+      [
+        "O que gostaria de fazer junto?",
+        "Ajuda a identificar interesses e expectativas."
+      ],
+      [
+        "Há algo que eu poderia ouvir melhor?",
+        "Convide a outra pessoa a falar sem interromper ou se defender imediatamente."
+      ]
+    ]
+  },
+  {
+    "slug": "pequenas-ilusoes-da-atencao",
+    "category": "Curiosidades",
+    "title": "5 situações em que nossa atenção pode nos enganar",
+    "intro": "Nossa percepção seleciona informações. Estes exemplos convidam a observar os próprios hábitos.",
+    "items": [
+      [
+        "Procurar o objeto que está à vista",
+        "A pressa pode fazer ignorar algo colocado em local evidente."
+      ],
+      [
+        "Ler uma palavra diferente da escrita",
+        "A expectativa sobre uma frase pode influenciar a leitura."
+      ],
+      [
+        "Não notar uma mudança no ambiente",
+        "Quando estamos focados em uma tarefa, detalhes periféricos podem passar despercebidos."
+      ],
+      [
+        "Esquecer por que entrou em um cômodo",
+        "Mudar de contexto pode dificultar lembrar a intenção inicial."
+      ],
+      [
+        "Confundir familiaridade com certeza",
+        "Reconhecer algo não significa necessariamente recordar todos os detalhes corretamente."
+      ]
+    ]
+  }
+]
