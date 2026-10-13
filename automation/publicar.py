@@ -43,7 +43,9 @@ images = {
     "Relacionamentos": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1200&q=80",
     "Curiosidades": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
 }
-image = images.get(entry["category"], images["Curiosidades"])
+image = entry.get("image") or images.get(entry["category"], images["Curiosidades"])
+if not image.startswith("https://") and not image.startswith("/"):
+    raise ValueError("Imagem deve ser URL HTTPS ou caminho local")
 related = "".join(
     f'<a class="recommend" href="/leituras/{esc(other["slug"])}.html">{esc(other["title"])} →</a>'
     for other in DATA if other["slug"] != slug and (DEST / f'{other["slug"]}.html').exists()
@@ -60,7 +62,7 @@ page = f"""<!doctype html>
 <div class="stripe">UMA DESCOBERTA PUXA A OUTRA</div>
 <div class="layout"><main class="article"><p class="tag">{esc(entry["category"])} · Leitura rápida</p>
 <h1>{esc(entry["title"])}</h1><p class="lead">{esc(entry["intro"])}</p>
-<img class="hero" src="{image}" alt="Imagem ilustrativa do tema {esc(entry["category"])}" loading="eager">
+<img class="hero" src="{image}" alt="{esc(entry.get("image_alt", "Imagem ilustrativa do tema " + entry["category"]))}" loading="eager">
 {sections}
 {commerce}
 <div class="next"><strong>Gostou desta descoberta?</strong><p>Continue explorando ideias úteis e histórias curiosas.</p><a href="/leituras/">Ver mais leituras →</a> · <a href="/#achadinhos">Explorar achadinhos →</a></div>
@@ -70,7 +72,7 @@ page = f"""<!doctype html>
 cards = []
 for item in reversed(DATA):
     if (DEST / f'{item["slug"]}.html').exists():
-        picture = images.get(item["category"], images["Curiosidades"])
+        picture = item.get("image") or images.get(item["category"], images["Curiosidades"])
         cards.append(f'<a class="card" href="./{esc(item["slug"])}.html"><img loading="lazy" src="{picture}" alt=""><div class="card-body"><span class="tag">{esc(item["category"])}</span><h2>{esc(item["title"])}</h2><span>Leia agora →</span></div></a>')
 index = '<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Novas leituras | 1 Minuto de Luz</title><link rel="stylesheet" href="/leituras/editorial.css"><body><header class="top"><nav class="nav"><a class="logo" href="/">✳ 1 minuto de luz</a><div class="navlinks"><a href="/#achadinhos">Achadinhos</a><a href="/#desafios">Desafios</a></div></nav></header><div class="stripe">DESCUBRA ALGO NOVO</div><div class="layout"><main class="listing"><p class="tag">Histórias e descobertas</p><h1>Novas leituras</h1><p class="lead">Ideias úteis, curiosidades e relações humanas para explorar.</p><div class="cards">' + "".join(cards) + '</div></main><aside class="aside"><h3>Explore também</h3><a class="recommend" href="/#achadinhos">Achadinhos para casa →</a><a class="recommend" href="/#desafios">Desafios rápidos →</a></aside></div><footer class="footer">1 Minuto de Luz · <a href="/">Voltar ao início</a></footer></body></html>'
 (DEST / "index.html").write_text(index, encoding="utf-8")
