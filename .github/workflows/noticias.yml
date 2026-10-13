@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'automation/noticias.json'
+      - 'automation/publicar_noticias.py'
   workflow_dispatch:
 permissions:
   contents: write
