@@ -59,4 +59,29 @@ for item in DATA:
         cards.append(f'<a class="card" href="./{esc(item["slug"])}.html"><img loading="lazy" src="{picture}" alt=""><div class="card-body"><span class="tag">{esc(item["category"])}</span><h2>{esc(item["title"])}</h2><span>Leia agora →</span></div></a>')
 index = '<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Novas leituras | 1 Minuto de Luz</title><link rel="stylesheet" href="/leituras/editorial.css"><body><header class="top"><nav class="nav"><a class="logo" href="/">✳ 1 minuto de luz</a><div class="navlinks"><a href="/#achadinhos">Achadinhos</a><a href="/#desafios">Desafios</a></div></nav></header><div class="stripe">DESCUBRA ALGO NOVO</div><div class="layout"><main class="listing"><p class="tag">Histórias e descobertas</p><h1>Novas leituras</h1><p class="lead">Ideias úteis, curiosidades e relações humanas para explorar.</p><div class="cards">' + "".join(cards) + '</div></main><aside class="aside"><h3>Explore também</h3><a class="recommend" href="/#achadinhos">Achadinhos para casa →</a><a class="recommend" href="/#desafios">Desafios rápidos →</a></aside></div><footer class="footer">1 Minuto de Luz · <a href="/">Voltar ao início</a></footer></body></html>'
 (DEST / "index.html").write_text(index, encoding="utf-8")
+
+# Atualiza a vitrine de leituras da página inicial em cada nova publicação.
+homepage = ROOT / "index.html"
+start_marker = "<!-- LEITURAS_AUTO_INICIO -->"
+end_marker = "<!-- LEITURAS_AUTO_FIM -->"
+source = homepage.read_text(encoding="utf-8")
+if start_marker not in source or end_marker not in source:
+    raise RuntimeError("Marcadores de leituras ausentes na página inicial")
+recent = [item for item in DATA if (DEST / f'{item["slug"]}.html').exists()][-6:]
+recent.reverse()
+highlights = "".join(
+    f'<a href="/leituras/{esc(item["slug"])}.html"><span class="mini-tag">{esc(item["category"])}</span><strong>{esc(item["title"])}</strong><span>Leia agora →</span></a>'
+    for item in recent
+)
+block = (
+    '<section id="novas-leituras" class="section"><div class="section-heading"><div>'
+    '<span class="kicker">CONTEÚDO NOVO</span><h2>Novas leituras</h2></div>'
+    '<p>Descobertas práticas e curiosidades para explorar em poucos minutos.</p></div>'
+    '<div class="more-stories">' + highlights + '</div>'
+    '<p><a class="cta" href="/leituras/">Ver todas as leituras →</a></p></section>'
+)
+before, remainder = source.split(start_marker, 1)
+_, after = remainder.split(end_marker, 1)
+homepage.write_text(before + start_marker + "\\n" + block + "\\n" + end_marker + after, encoding="utf-8")
+
 print(f"Publicado: {slug} ({dt.date.today().isoformat()})")
