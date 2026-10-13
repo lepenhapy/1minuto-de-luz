@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/editorial.yml'
+      - 'automation/publicar.py'
   schedule:
     - cron: '20 13 * * 1'
   workflow_dispatch:
