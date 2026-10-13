@@ -82,6 +82,6 @@ block = (
 )
 before, remainder = source.split(start_marker, 1)
 _, after = remainder.split(end_marker, 1)
-homepage.write_text(before + start_marker + "\\n" + block + "\\n" + end_marker + after, encoding="utf-8")
+homepage.write_text(before + start_marker + "\n" + block + "\n" + end_marker + after, encoding="utf-8")
 
 print(f"Publicado: {slug} ({dt.date.today().isoformat()})")
