@@ -22,7 +22,7 @@ if not re.fullmatch(r"[a-z0-9-]+", slug):
     raise ValueError("Slug inválido")
 if "paragraphs" in entry:
     sections = "\n".join(
-        '<section class="item"><p>' + esc(p) + '</p></section>' for p in entry["paragraphs"]
+        '<section class="story-paragraph"><p>' + esc(p) + '</p></section>' for p in entry["paragraphs"]
     )
 else:
     sections = "\n".join(
@@ -68,7 +68,7 @@ page = f"""<!doctype html>
 <footer class="footer">1 Minuto de Luz · <a href="/">Página inicial</a> · <a href="/privacidade.html">Privacidade</a></footer></body></html>"""
 (DEST / f"{slug}.html").write_text(page, encoding="utf-8")
 cards = []
-for item in DATA:
+for item in reversed(DATA):
     if (DEST / f'{item["slug"]}.html').exists():
         picture = images.get(item["category"], images["Curiosidades"])
         cards.append(f'<a class="card" href="./{esc(item["slug"])}.html"><img loading="lazy" src="{picture}" alt=""><div class="card-body"><span class="tag">{esc(item["category"])}</span><h2>{esc(item["title"])}</h2><span>Leia agora →</span></div></a>')
