@@ -50,7 +50,7 @@ if created:
         _, after = rest.split(end, 1)
         source = before + start + "\n" + block + "\n" + end + after
     else:
-        source = source.replace('<section id="desafios"', start + "\n" + block + "\n" + end + "\n<section id="desafios"', 1)
+        source = source.replace('<section id="desafios"', start + "\n" + block + "\n" + end + "\n" + '<section id="desafios"', 1)
     home.write_text(source, encoding="utf-8")
     print("Noticias publicadas:", ", ".join(i["slug"] for i in created))
 else:
