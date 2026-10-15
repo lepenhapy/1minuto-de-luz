@@ -31,12 +31,20 @@ for item in items:
         raise ValueError("Fonte invalida: " + slug)
     e = lambda s: html.escape(str(s), quote=True)
     paragraphs = "".join('<section class="story-paragraph"><p>' + e(p) + "</p></section>" for p in item["paragrafos"])
-    links = "".join('<li><a href="' + e(u) + '" rel="noopener noreferrer" target="_blank">' + e(urlparse(u).netloc) + "</a></li>" for u in sources)
+    links = "".join("<li>" + e(urlparse(u).netloc.removeprefix("www.")) + "</li>" for u in sources)
     image = item.get("imagem", "")
     if image and not (image.startswith("https://") or image.startswith("/")):
         raise ValueError("Imagem invalida")
     img = ('<img class="hero" src="' + e(image) + '" alt="' + e(item.get("imagem_alt", "Imagem editorial")) + '">' ) if image else ""
-    page = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(item["titulo"])} | 1 Minuto de Luz</title><meta name="description" content="{e(item["resumo"])}"><link rel="stylesheet" href="/leituras/editorial.css"></head><body><header class="top"><nav class="nav"><a class="logo" href="/">✳ 1 minuto de luz</a><a href="/leituras/">Mais leituras</a></nav></header><div class="stripe">FAMOSOS E ATUALIDADES · INFORMAÇÃO VERIFICADA</div><div class="layout"><main class="article"><p class="tag">Entretenimento · {e(item["data"])}</p><h1>{e(item["titulo"])}</h1><p class="lead">{e(item["resumo"])}</p>{img}{paragraphs}<div class="next"><strong>Fontes consultadas</strong><ul>{links}</ul><p class="small">Informações verificadas na data indicada. Notícias podem evoluir.</p></div><a href="/leituras/">Outras descobertas →</a></main><aside class="aside"><h3>Continue explorando</h3><a class="recommend" href="/#desafios">Um desafio de 1 minuto →</a><a class="recommend" href="/leituras/">Mais matérias →</a></aside></div></body></html>"""
+    published_at = item.get("publicado_em", "")
+    updated_at = item.get("atualizado_em", "")
+    correction = item.get("nota_correcao", "")
+    metadata = "<p class=\"article-meta\">Publicado: " + e(published_at or item["data"] + " (horário não informado)") + "</p>"
+    if updated_at:
+        metadata += "<p class=\"article-meta\">Atualizado: " + e(updated_at) + "</p>"
+    if correction:
+        metadata += "<p class=\"correction-note\"><strong>Correção:</strong> " + e(correction) + "</p>"
+    page = f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(item["titulo"])} | 1 Minuto de Luz</title><meta name="description" content="{e(item["resumo"])}"><link rel="stylesheet" href="/leituras/editorial.css"></head><body><header class="top"><nav class="nav"><a class="logo" href="/">✳ 1 minuto de luz</a><a href="/leituras/">Mais leituras</a></nav></header><div class="stripe">FAMOSOS E ATUALIDADES · INFORMAÇÃO VERIFICADA</div><div class="layout"><main class="article"><p class="tag">Entretenimento</p>{metadata}<h1>{e(item["titulo"])}</h1><p class="lead">{e(item["resumo"])}</p>{img}{paragraphs}<div class="next"><strong>Fontes consultadas</strong><ul>{links}</ul><p class="small">Informações verificadas na data indicada. Notícias podem evoluir.</p></div><a href="/leituras/">Outras descobertas →</a></main><aside class="aside"><h3>Continue explorando</h3><a class="recommend" href="/#desafios">Um desafio de 1 minuto →</a><a class="recommend" href="/leituras/">Mais matérias →</a></aside></div></body></html>"""
     (dest / (slug + ".html")).write_text(page, encoding="utf-8")
     created.append(item)
 if created:
