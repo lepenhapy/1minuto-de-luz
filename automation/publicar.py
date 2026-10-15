@@ -87,15 +87,12 @@ if start_marker not in source or end_marker not in source:
 recent = [item for item in DATA if (DEST / f'{item["slug"]}.html').exists()][-6:]
 recent.reverse()
 highlights = "".join(
-    f'<a href="/leituras/{esc(item["slug"])}.html"><span class="mini-tag">{esc(item["category"])}</span><strong>{esc(item["title"])}</strong><span>Leia agora →</span></a>'
+    '<a class="portal-card" href="/leituras/' + esc(item["slug"]) + '.html"><div class="portal-card-art art-curiosidade">' + esc(item["category"]).upper() + '</div><div><span class="mini-tag">' + esc(item["category"]) + '</span><h3>' + esc(item["title"]) + '</h3><span>Ler agora →</span></div></a>'
     for item in recent
 )
 block = (
-    '<section id="novas-leituras" class="section"><div class="section-heading"><div>'
-    '<span class="kicker">CONTEÚDO NOVO</span><h2>Novas leituras</h2></div>'
-    '<p>Descobertas práticas e curiosidades para explorar em poucos minutos.</p></div>'
-    '<div class="more-stories">' + highlights + '</div>'
-    '<p><a class="cta" href="/leituras/">Ver todas as leituras →</a></p></section>'
+    '<div id="novas-leituras" class="portal-reads"><div class="portal-news-head"><span class="kicker">MAIS HISTÓRIAS</span><a href="/leituras/">Todas as leituras →</a></div>'
+    '<div class="portal-cards">' + highlights + '</div></div>'
 )
 before, remainder = source.split(start_marker, 1)
 _, after = remainder.split(end_marker, 1)
