@@ -51,8 +51,11 @@ if created:
     home = ROOT / "index.html"
     source = home.read_text(encoding="utf-8")
     start, end = "<!-- NOTICIAS_AUTO_INICIO -->", "<!-- NOTICIAS_AUTO_FIM -->"
-    cards = "".join('<a href="/leituras/' + html.escape(i["slug"]) + '.html"><span class="mini-tag">AGORA · ENTRETENIMENTO</span><strong>' + html.escape(i["titulo"]) + '</strong><span>Ler notícia →</span></a>' for i in reversed(items) if (dest / (i["slug"] + ".html")).exists())
-    block = '<section class="section" id="noticias"><div class="section-heading"><div><span class="kicker">EM DESTAQUE</span><h2>Famosos e atualidades</h2></div><p>Notícias verificadas e histórias que estão dando o que falar.</p></div><div class="more-stories">' + cards + '</div></section>'
+    cards = "".join(
+        '<a class="portal-news-lead" href="/leituras/' + html.escape(i["slug"]) + '.html"><div class="portal-news-art"><span>✳</span><small>1 MINUTO DE LUZ</small></div><div class="portal-news-body"><span class="mini-tag">ENTRETENIMENTO · ' + html.escape(i["data"]) + '</span><h3>' + html.escape(i["titulo"]) + '</h3><p>' + html.escape(i["resumo"]) + '</p><strong>Ler reportagem →</strong></div></a>'
+        for i in reversed(items) if (dest / (i["slug"] + ".html")).exists()
+    )
+    block = '<div id="noticias" class="portal-news"><div class="portal-news-head"><span class="kicker">FAMOSOS & ATUALIDADES</span><span class="portal-news-note">Informações em acompanhamento</span></div><div class="portal-news-list">' + cards + '</div></div>'
     if start in source and end in source:
         before, rest = source.split(start, 1)
         _, after = rest.split(end, 1)
