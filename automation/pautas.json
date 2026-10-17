@@ -261,5 +261,197 @@
         "Uma conversa produtiva pode terminar com uma ação pequena e verificável. Se houver intimidação ou violência, priorize segurança e apoio adequado, não uma conversa a qualquer custo."
       ]
     ]
+  },
+  {
+    "slug": "como-verificar-boato-antes-de-compartilhar",
+    "category": "Brasil",
+    "title": "Recebeu uma notícia bombástica? Faça estas 5 verificações antes de compartilhar",
+    "intro": "Uma checagem rápida pode evitar que você repasse informação falsa.",
+    "items": [
+      [
+        "Leia além da manchete",
+        "Títulos chamativos nem sempre representam o conteúdo completo."
+      ],
+      [
+        "Confira a data",
+        "Uma notícia antiga pode circular como se tivesse acontecido hoje."
+      ],
+      [
+        "Procure a origem",
+        "Veja quem publicou e se há documentos ou declarações identificáveis."
+      ],
+      [
+        "Compare outras fontes",
+        "Busque confirmação independente em veículos e instituições confiáveis."
+      ],
+      [
+        "Desconfie da urgência",
+        "Mensagens que exigem compartilhamento imediato merecem cautela."
+      ]
+    ]
+  },
+  {
+    "slug": "decoracao-sem-gastar-muito",
+    "category": "Casa & Decoração",
+    "title": "5 maneiras de renovar a decoração sem começar uma reforma",
+    "intro": "Mudanças simples podem alterar a sensação de um ambiente sem grandes gastos.",
+    "items": [
+      [
+        "Mude a disposição",
+        "Teste outras posições para móveis sem comprometer a circulação."
+      ],
+      [
+        "Aproveite a iluminação",
+        "Observe como a luz natural e as luminárias mudam o ambiente."
+      ],
+      [
+        "Escolha um ponto de destaque",
+        "Uma almofada, quadro ou manta pode trazer cor sem sobrecarregar."
+      ],
+      [
+        "Reaproveite peças",
+        "Objetos guardados podem ganhar nova função decorativa."
+      ],
+      [
+        "Planeje antes de comprar",
+        "Meça o espaço e defina um limite de gastos."
+      ]
+    ]
+  },
+  {
+    "slug": "entenda-pesquisas-eleitorais",
+    "category": "Brasil",
+    "title": "Pesquisa eleitoral: 5 detalhes para observar antes de acreditar em um número",
+    "intro": "Um percentual isolado não conta toda a história de uma pesquisa.",
+    "items": [
+      [
+        "Identifique o instituto",
+        "Confira quem realizou o levantamento."
+      ],
+      [
+        "Observe as datas",
+        "Veja quando as entrevistas foram feitas."
+      ],
+      [
+        "Leia a metodologia",
+        "Amostra e forma de coleta influenciam a interpretação."
+      ],
+      [
+        "Entenda a margem de erro",
+        "Diferenças pequenas podem não indicar vantagem estatística."
+      ],
+      [
+        "Consulte o registro",
+        "Quando aplicável, procure os dados oficiais da pesquisa na Justiça Eleitoral."
+      ]
+    ]
+  },
+  {
+    "slug": "curiosidades-das-novelas",
+    "category": "Novelas",
+    "title": "Por que os vilões de novelas ficam tanto tempo na memória?",
+    "intro": "Há razões narrativas para certos personagens marcarem gerações.",
+    "items": [
+      [
+        "Conflito movimenta a história",
+        "Antagonistas criam obstáculos que mantêm a trama em andamento."
+      ],
+      [
+        "Frases viram referência",
+        "Bordões e cenas fortes ajudam a fixar personagens."
+      ],
+      [
+        "Figurino conta histórias",
+        "Roupas e cenários reforçam a personalidade na ficção."
+      ],
+      [
+        "Mudanças surpreendem",
+        "Arcos de redenção ou quedas dramáticas geram conversa."
+      ],
+      [
+        "A nostalgia aproxima",
+        "Rever uma cena também pode despertar lembranças de outra época."
+      ]
+    ]
+  },
+  {
+    "slug": "famosos-privacidade-e-boatos",
+    "category": "Famosos",
+    "title": "Famosos e rumores: como distinguir confirmação de especulação",
+    "intro": "Nem tudo que viraliza sobre a vida de uma celebridade foi confirmado.",
+    "items": [
+      [
+        "Busque a fala original",
+        "Veja se a declaração existe e em que contexto foi feita."
+      ],
+      [
+        "Diferencie fonte e comentário",
+        "Opinião de terceiros não é confirmação de um fato."
+      ],
+      [
+        "Desconfie de imagens fora de contexto",
+        "Fotos antigas podem reaparecer com novas legendas."
+      ],
+      [
+        "Evite conclusões pessoais",
+        "Silêncio nas redes não prova um rumor."
+      ],
+      [
+        "Prefira atualizações identificadas",
+        "Fontes e datas ajudam a acompanhar o que realmente mudou."
+      ]
+    ]
+  },
+  {
+    "slug": "horoscopo-como-entretenimento",
+    "category": "Horóscopo",
+    "title": "Horóscopo: 4 formas leves de transformar uma leitura em reflexão",
+    "intro": "Use previsões astrológicas como entretenimento, sem tratá-las como certezas.",
+    "items": [
+      [
+        "Pense nas suas prioridades",
+        "Aproveite o tema do dia para lembrar de algo importante."
+      ],
+      [
+        "Observe seus hábitos",
+        "Uma sugestão pode inspirar uma pequena mudança."
+      ],
+      [
+        "Converse com alguém",
+        "Relações melhoram mais com diálogo do que com previsões."
+      ],
+      [
+        "Decida com informações reais",
+        "Saúde, dinheiro e trabalho exigem critérios concretos, não astrologia."
+      ]
+    ]
+  },
+  {
+    "slug": "organizar-contas-em-15-minutos",
+    "category": "Vida prática",
+    "title": "15 minutos para organizar as contas: por onde começar",
+    "intro": "Uma visão simples dos vencimentos pode evitar surpresas.",
+    "items": [
+      [
+        "Anote o saldo disponível",
+        "Comece pelo valor que realmente pode usar."
+      ],
+      [
+        "Liste contas essenciais",
+        "Separe moradia, alimentação e serviços básicos."
+      ],
+      [
+        "Registre vencimentos",
+        "Organize datas e valores em uma lista."
+      ],
+      [
+        "Identifique atrasos",
+        "Veja quais cobranças precisam de negociação."
+      ],
+      [
+        "Revise semanalmente",
+        "Uma rotina curta ajuda a manter o controle."
+      ]
+    ]
   }
 ]
