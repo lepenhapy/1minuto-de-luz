@@ -1,0 +1,32 @@
+name: Publicacao diaria de leituras
+on:
+  schedule:
+    - cron: '20 11 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publicacao-leituras
+  cancel-in-progress: false
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Publicar proxima pauta editorial
+        run: python automation/publicar.py
+      - name: Salvar paginas publicadas
+        run: |
+          git config user.name "1 Minuto de Luz Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html leituras/
+          if ! git diff --cached --quiet; then
+            git commit -m "Publicar leitura editorial diaria"
+            git pull --rebase
+            git push
+          fi
