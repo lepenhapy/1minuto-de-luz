@@ -1,0 +1,27 @@
+name: Descoberta diaria de tendencias
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Consultar fontes RSS
+        run: python automation/coletar_tendencias.py
+      - name: Salvar sugestoes sem publicar noticias
+        run: |
+          git config user.name "1 Minuto de Luz Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add automation/tendencias.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Atualizar sugestoes editoriais RSS"
+            git pull --rebase
+            git push
+          fi
