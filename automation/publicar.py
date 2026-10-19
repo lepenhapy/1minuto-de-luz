@@ -99,3 +99,20 @@ _, after = remainder.split(end_marker, 1)
 homepage.write_text(before + start_marker + "\n" + block + "\n" + end_marker + after, encoding="utf-8")
 
 print(f"Publicado: {slug} ({dt.date.today().isoformat()})")
+
+# Recria o sitemap com todas as paginas HTML existentes, sem URLs inventadas.
+from xml.sax.saxutils import escape as xml_escape
+site_url = "https://1minuto-de-luz.pages.dev"
+paths = [p for p in ROOT.rglob("*.html") if ".git" not in p.parts and "node_modules" not in p.parts]
+urls = []
+for path in sorted(paths):
+    relative = path.relative_to(ROOT).as_posix()
+    location = "/" if relative == "index.html" else "/" + relative
+    urls.append("  <url><loc>" + xml_escape(site_url + location) + "</loc></url>")
+(ROOT / "sitemap.xml").write_text(
+    '<?xml version="1.0" encoding="UTF-8"?>\\n'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\\n'
+    + "\\n".join(urls)
+    + '\\n</urlset>\\n',
+    encoding="utf-8",
+)
